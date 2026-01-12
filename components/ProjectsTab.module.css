@@ -1,0 +1,88 @@
+.tabContent {
+  animation: fadeIn var(--animation-duration-normal) var(--animation-ease);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sectionTitle {
+  font-size: var(--font-size-h2);
+  font-weight: 700;
+  line-height: var(--line-height-h2);
+  color: var(--foreground);
+  margin-bottom: var(--spacing-lg);
+  text-transform: lowercase;
+  text-align: left;
+}
+
+.tabsList {
+  margin-bottom: var(--spacing-lg);
+}
+
+.tabPanel {
+  animation: fadeIn var(--animation-duration-fast) var(--animation-ease);
+  outline: none;
+}
+
+.carouselContainer {
+  max-width: 100%;
+  margin: 0 auto;
+  max-height: 34rem;
+  overflow: hidden;
+  padding-bottom: var(--spacing-md);
+}
+
+.carouselItem {
+  flex: 0 0 calc((100% - 2 * var(--spacing-md)) / 3);
+  padding: 0 var(--spacing-sm);
+  height: 24rem;
+}
+
+/* Mobile: 1 card at full width */
+@media (max-width: 768px) {
+  .sectionTitle {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-xl);
+  }
+}
+
+@media (max-width: 767px) {
+  .carouselContainer {
+    max-height: 38rem;
+  }
+
+  .carouselItem {
+    flex: 0 0 calc(100% - var(--spacing-md));
+    padding: 0 var(--spacing-sm);
+    height: 24rem;
+  }
+}
+
+/* Tablet: 2 cards side by side */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .carouselItem {
+    flex: 0 0 calc((100% - var(--spacing-md)) / 2);
+    padding: 0 var(--spacing-sm);
+    height: 20rem;
+  }
+
+  .carouselContainer {
+    max-height: 38rem;
+  }
+}
+
+/* Desktop: 3 cards side by side (default) */
+@media (min-width: 1024px) {
+  .carouselItem {
+    flex: 0 0 calc((100% - 2 * var(--spacing-md)) / 3);
+    height: 24rem;
+  }
+}

@@ -1,0 +1,117 @@
+.skillsSection {
+  padding: var(--spacing-4xl) var(--spacing-md);
+  background-color: var(--background);
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-h2);
+  text-align: center;
+  margin-bottom: var(--spacing-xs);
+  color: var(--primary);
+}
+
+.sectionSubtitle {
+  font-size: var(--font-size-body);
+  text-align: center;
+  color: var(--muted-foreground);
+  margin-bottom: var(--spacing-3xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-3xl);
+  align-items: stretch;
+}
+
+.skillCard {
+  background-color: var(--card);
+  padding: var(--spacing-3xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--animation-duration-normal) ease, box-shadow var(--animation-duration-normal) ease;
+}
+
+.skillCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-2);
+}
+
+.icon {
+  color: var(--primary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.categoryTitle {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-h3);
+  margin-bottom: var(--spacing-lg);
+  color: var(--foreground);
+}
+
+.skillsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  flex-grow: 1;
+}
+
+.skillGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.primarySkill {
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  background-color: color-mix(in srgb, var(--accent) 15%, transparent) !important;
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+
+.secondarySkill {
+  padding: 0.25rem var(--spacing-sm);
+  font-size: var(--font-size-tiny);
+  font-weight: 500;
+}
+
+.proofPoint {
+  margin-top: var(--spacing-3xl);
+  padding: var(--spacing-md);
+  background-color: var(--muted);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--accent);
+}
+
+.proofPoint p {
+  font-size: var(--font-size-small);
+  font-style: italic;
+  color: var(--muted-foreground);
+  line-height: var(--line-height-small);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .skillsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .skillsGrid {
+    grid-template-columns: 1fr;
+  }
+}

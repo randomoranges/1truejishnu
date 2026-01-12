@@ -1,0 +1,98 @@
+.navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav-sticky);
+  background-color: transparent;
+  transition: all var(--animation-duration-normal) ease;
+  padding: var(--spacing-md) 0;
+}
+
+.navigation.scrolled {
+  background-color: color-mix(in srgb, var(--background) 95%, transparent);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-2);
+}
+
+.navContainer {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-lg);
+}
+
+.navLogo {
+  display: flex;
+  align-items: center;
+}
+
+.navLogoText {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-foreground);
+  transition: color var(--animation-duration-fast) ease;
+}
+
+.navigation.scrolled .navLogoText {
+  color: var(--primary);
+}
+
+.navLinks {
+  display: flex;
+  gap: var(--spacing-md);
+  flex: 1;
+  justify-content: center;
+}
+
+.navLink {
+  background: none;
+  border: none;
+  color: var(--primary-foreground);
+  font-family: var(--font-family-base);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  transition: all var(--animation-duration-fast) ease;
+  opacity: 0.9;
+  border-radius: var(--radius);
+}
+
+.navLink:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navigation.scrolled .navLink {
+  color: var(--foreground);
+}
+
+.navigation.scrolled .navLink:hover {
+  background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  color: var(--primary);
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* Dark mode - automatically handled by CSS variables */
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .navLinks {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .navContainer {
+    padding: 0 var(--spacing-md);
+  }
+}

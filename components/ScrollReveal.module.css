@@ -1,0 +1,67 @@
+.base {
+  /* Use the global easing variable if available, otherwise fallback to a smooth cubic-bezier */
+  transition-timing-function: var(--animation-ease, cubic-bezier(0.25, 0.46, 0.45, 0.94));
+  transition-property: opacity, transform, filter;
+  will-change: opacity, transform;
+}
+
+/* 
+  Initial States (Hidden) 
+*/
+
+/* fadeUp: starts 30px below, fades and slides up */
+.fadeUp {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* fadeIn: simple opacity fade */
+.fadeIn {
+  opacity: 0;
+}
+
+/* fadeLeft: starts 30px right, slides left (to 0) */
+.fadeLeft {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* fadeRight: starts 30px left, slides right (to 0) */
+.fadeRight {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+/* scale: starts at 0.95 scale, scales up */
+.scale {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+/* blur: starts blurred, sharpens */
+.blur {
+  opacity: 0;
+  filter: blur(10px);
+  transform: scale(1.02); /* Slight scale to prevent hard edges during blur */
+}
+
+/* 
+  Final State (Visible) 
+*/
+.visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* 
+  Accessibility: Disable animations if user prefers reduced motion 
+*/
+@media (prefers-reduced-motion: reduce) {
+  .base {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}

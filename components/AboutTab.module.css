@@ -1,0 +1,68 @@
+.tabContent {
+  animation: fadeIn var(--animation-duration-normal) var(--animation-ease);
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.container {
+  max-width: 800px;
+  width: 100%;
+  padding: var(--spacing-4xl) var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.heading {
+  font-size: var(--font-size-h1);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--foreground);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.greeting {
+  color: var(--muted-foreground);
+  /* The space is usually in the 'rest' string, but if not we rely on normal whitespace handling */
+}
+
+.bio {
+  font-size: 1.5rem; /* Larger than standard body text for impact */
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--foreground);
+  opacity: 0.9;
+  margin: 0;
+  white-space: pre-wrap; /* Preserve formatting if any */
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .heading {
+    font-size: 2.5rem;
+  }
+  
+  .bio {
+    font-size: 1.125rem;
+  }
+  
+  .container {
+    padding: var(--spacing-2xl) var(--spacing-md);
+    gap: var(--spacing-lg);
+  }
+}

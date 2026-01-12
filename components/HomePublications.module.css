@@ -1,0 +1,88 @@
+.publicationsSection {
+  padding: var(--spacing-4xl) var(--spacing-md);
+  background-color: color-mix(in srgb, var(--primary) 3%, var(--background));
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-h2);
+  text-align: center;
+  margin-bottom: var(--spacing-xs);
+  color: var(--primary);
+}
+
+.sectionSubtitle {
+  font-size: var(--font-size-body);
+  text-align: center;
+  color: var(--muted-foreground);
+  margin-bottom: var(--spacing-3xl);
+}
+
+.publicationsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.publicationCard {
+  background-color: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+  transition: box-shadow var(--animation-duration-normal) ease;
+  border-left: 4px solid var(--accent);
+  padding: var(--spacing-lg);
+}
+
+.publicationCard:hover {
+  box-shadow: var(--shadow-2);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.icon {
+  color: var(--primary);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.publicationTitle {
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-h4);
+  color: var(--foreground);
+  line-height: var(--line-height-h4);
+}
+
+.conferenceInfo {
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.publicationDescription {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--muted-foreground);
+}
+
+.cardActions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+}

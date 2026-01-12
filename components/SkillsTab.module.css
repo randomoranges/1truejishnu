@@ -1,0 +1,227 @@
+.container {
+  width: 100%;
+  padding: var(--spacing-3xl) 0;
+  animation: fadeIn var(--animation-duration-normal) var(--animation-ease);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header Section */
+.header {
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.introWrapper {
+  display: none;
+}
+
+.intro {
+  display: none;
+}
+
+.headline {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h2);
+  font-weight: 700;
+  color: var(--foreground);
+  line-height: 1.1;
+  text-align: left;
+  margin: 0;
+}
+
+/* Card Container & Layout */
+.cardsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--spacing-lg) 0;
+  /* Ensure plenty of space for rotations */
+  padding-top: var(--spacing-xl);
+}
+
+/* Base Card Styles */
+.card {
+  position: relative;
+  width: 280px;
+  min-height: 340px;
+  /* Rotate the whole wrapper */
+  transform: rotate(var(--rotation));
+  transition: transform var(--animation-duration-normal) var(--animation-ease), z-index 0s;
+  
+  /* Establish local stacking context for children z-index relative to this card */
+  isolation: isolate; 
+}
+
+.card:hover {
+  transform: rotate(0) scale(1.05) translateY(-10px);
+  z-index: 100 !important;
+}
+
+/* Specific Card Positioning for Overlap */
+.card1 {
+  z-index: 1;
+  margin-right: -2.5rem; /* Overlap */
+}
+
+.card2 {
+  z-index: 10; /* Middle card in front */
+  margin-top: 1rem; /* Slightly lower visually to balance the arch or keep straight */
+}
+
+.card3 {
+  z-index: 1;
+  margin-left: -2.5rem; /* Overlap */
+}
+
+/* Card Body - The White Sheet */
+.cardBody {
+  position: relative;
+  z-index: 2; /* In front of tab */
+  background: #ffffff; /* Explicit white for light mode as requested */
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  min-height: 340px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Soft shadow */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tab Styles - The "File Folder" tab behind */
+.cardTab {
+  position: absolute;
+  top: -32px;
+  left: 0;
+  height: 48px;
+  min-width: 120px;
+  padding: 8px var(--spacing-md) 0;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  z-index: 1; /* Behind cardBody (which is 2) */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  
+  /* Slight tilt for the tab to look organic */
+  transform: rotate(-1deg);
+  transform-origin: bottom left;
+}
+
+.cardTitle {
+  font-family: var(--font-family-cursive);
+  font-size: 1.1rem;
+  font-weight: 400; /* Handwritten often looks bold enough */
+  color: var(--foreground);
+  /* Lowercase as requested */
+  text-transform: lowercase; 
+}
+
+/* Variant Colors - Exact matches for Light Mode */
+.green .cardTab {
+  background-color: #e8f5a3; /* Bright yellow-green */
+}
+
+.purple .cardTab {
+  background-color: #e8d5f5; /* Soft lavender */
+}
+
+.blue .cardTab {
+  background-color: #d5e8f5; /* Light sky blue */
+}
+
+/* Item List */
+.itemList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  flex-grow: 1;
+}
+
+.item {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-small);
+  color: var(--foreground);
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.5;
+}
+
+.item:last-child {
+  border-bottom: 1px solid var(--border); /* Keep underline for consistency in this design? Usually lists drop last. Prompt says "Items in each card have underlines". I'll keep it for all. */
+}
+
+/* "And more..." text */
+.moreText {
+  margin-top: auto;
+  padding-top: var(--spacing-md);
+  font-family: var(--font-family-cursive);
+  font-size: var(--font-size-small);
+  color: var(--muted-foreground);
+  opacity: 0.6;
+  text-align: center;
+}
+
+/* Dark Mode Overrides */
+:global(.dark) .cardBody {
+  background: var(--surface);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+:global(.dark) .green .cardTab {
+  background-color: hsl(75, 40%, 30%);
+  color: var(--foreground);
+}
+
+:global(.dark) .purple .cardTab {
+  background-color: hsl(260, 40%, 35%);
+  color: var(--foreground);
+}
+
+:global(.dark) .blue .cardTab {
+  background-color: hsl(200, 50%, 30%);
+  color: var(--foreground);
+}
+
+:global(.dark) .item {
+  border-color: var(--border);
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+  .cardsContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-3xl);
+    padding-top: var(--spacing-2xl);
+  }
+
+  .card1, .card2, .card3 {
+    margin: 0;
+    width: 100%;
+    max-width: 340px;
+    z-index: 1;
+    transform: rotate(0) !important;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+  }
+
+  .headline {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .headline {
+    font-size: 2rem;
+  }
+}

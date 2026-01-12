@@ -1,0 +1,118 @@
+.container {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  right: var(--spacing-lg);
+  z-index: var(--z-nav-sticky);
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
+  padding: 4px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  transition: all var(--animation-duration-normal) ease;
+}
+
+.pill:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Dark mode glass effect */
+:global(.dark) .pill {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:global(.dark) .pill:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.iconButton {
+  border-radius: var(--radius-full);
+  color: var(--muted-foreground);
+  transition: color var(--animation-duration-fast) ease, background-color var(--animation-duration-fast) ease;
+}
+
+.iconButton:hover {
+  color: var(--foreground);
+  background-color: var(--muted);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Rotate animation when switching themes */
+.rotate {
+  transform: rotate(180deg);
+}
+
+.sunIcon {
+  color: var(--warning);
+}
+
+.moonIcon {
+  color: var(--foreground);
+}
+
+.divider {
+  width: 1px;
+  height: 16px;
+  background-color: var(--border);
+  margin: 0 2px;
+}
+
+.langButton {
+  border-radius: var(--radius-full);
+  color: var(--muted-foreground);
+  gap: 6px;
+  padding: 0 10px;
+  height: 32px;
+  font-weight: 500;
+}
+
+.langButton:hover {
+  color: var(--foreground);
+  background-color: var(--muted);
+}
+
+.langCode {
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+.menuContent {
+  min-width: 140px;
+  margin-bottom: 8px;
+}
+
+.flag {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.activeItem {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.check {
+  margin-left: auto;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .container {
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+  }
+}

@@ -1,0 +1,120 @@
+.tabContent {
+  animation: fadeIn var(--animation-duration-normal) var(--animation-ease);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sectionTitle {
+  font-size: var(--font-size-h2);
+  font-weight: 700;
+  line-height: var(--line-height-h2);
+  color: var(--foreground);
+  margin-bottom: var(--spacing-lg);
+  text-transform: lowercase;
+  text-align: left;
+}
+
+.educationGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+  max-width: 1200px;
+}
+
+.educationPhotoCard {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  box-shadow: var(--shadow-3);
+  transition: transform var(--animation-duration-normal) var(--animation-ease);
+}
+
+.educationPhotoCard:hover {
+  transform: translateY(-8px);
+}
+
+.educationPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.educationOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--spacing-lg);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+  color: white;
+}
+
+.educationInstitution {
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-h4);
+  line-height: var(--line-height-h4);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.educationDegree {
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  margin: 0 0 var(--spacing-xs) 0;
+  opacity: 0.9;
+}
+
+.educationYears {
+  font-size: var(--font-size-small);
+  margin: 0 0 var(--spacing-xs) 0;
+  opacity: 0.8;
+}
+
+.educationLocation {
+  font-size: var(--font-size-small);
+  margin: 0;
+  opacity: 0.75;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.locationIcon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .educationGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .sectionTitle {
+    font-size: 2rem;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .educationInstitution {
+    font-size: 1.1rem;
+  }
+
+  .educationDegree {
+    font-size: 0.8rem;
+  }
+
+  .educationYears, .educationLocation {
+    font-size: 0.75rem;
+  }
+}

@@ -1,0 +1,216 @@
+.card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  max-width: 800px;
+  
+  /* Enhanced transitions for smoother interaction */
+  transition: 
+    box-shadow var(--animation-duration-normal) var(--animation-ease),
+    transform var(--animation-duration-normal) var(--animation-ease),
+    border-color var(--animation-duration-normal) var(--animation-ease);
+  transform-origin: center;
+}
+
+/* Dynamic Left Accent Border via Pseudo-element */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background-color: var(--primary);
+  
+  /* Initial state: scaled down vertically and hidden */
+  transform: scaleY(0.6);
+  opacity: 0;
+  transform-origin: center;
+  
+  transition: 
+    transform var(--animation-duration-normal) var(--animation-ease),
+    opacity var(--animation-duration-normal) var(--animation-ease),
+    box-shadow var(--animation-duration-normal) var(--animation-ease);
+    
+  /* Ensure it doesn't overlap content, though padding protects it */
+  pointer-events: none;
+}
+
+.card:hover {
+  /* Subtle lift and scale */
+  transform: scale(1.01);
+  /* Enhanced shadow */
+  box-shadow: var(--shadow-3);
+  /* Subtle border tint */
+  border-color: color-mix(in srgb, var(--primary), transparent 70%);
+}
+
+.card:hover::before {
+  /* Expand to full height and show */
+  transform: scaleY(1);
+  opacity: 1;
+  /* Glow effect for the accent border */
+  box-shadow: 0 0 12px var(--primary);
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  text-align: left;
+}
+
+.companyName {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h3);
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--muted-foreground);
+  font-size: var(--font-size-body);
+  flex-wrap: wrap;
+}
+
+.role {
+  font-weight: 500;
+  color: var(--foreground);
+  transition: color var(--animation-duration-normal) ease;
+}
+
+.card:hover .role {
+  color: var(--primary);
+}
+
+.separator {
+  color: var(--border);
+}
+
+.duration {
+  font-family: var(--font-family-monospace);
+  font-size: 0.9em;
+}
+
+.location {
+  font-size: var(--font-size-small);
+  color: var(--muted-foreground);
+  margin-top: var(--spacing-1);
+}
+
+/* Body Section */
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.about {
+  font-size: var(--font-size-body);
+  line-height: 1.7;
+  color: var(--secondary);
+  margin: 0;
+}
+
+.achievementWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  padding-left: var(--spacing-md);
+  border-left: 3px solid var(--primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  
+  /* Transition for background highlight */
+  transition: 
+    background-color var(--animation-duration-normal) var(--animation-ease),
+    border-color var(--animation-duration-normal) var(--animation-ease),
+    padding-left var(--animation-duration-normal) var(--animation-ease);
+}
+
+.card:hover .achievementWrapper {
+  /* Subtle highlight on hover */
+  background-color: color-mix(in srgb, var(--primary), transparent 96%);
+  border-left-color: var(--primary);
+  padding-left: var(--spacing-lg); /* Slight movement/expansion */
+}
+
+.achievementLabel {
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-tiny);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary);
+  font-weight: 600;
+  
+  /* Micro-interaction transition */
+  transition: transform var(--animation-duration-normal) var(--animation-ease);
+}
+
+.card:hover .achievementLabel {
+  /* Subtle nudge */
+  transform: translateX(4px);
+}
+
+.achievementText {
+  font-size: var(--font-size-body);
+  color: var(--foreground);
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.narrative {
+  font-size: var(--font-size-body);
+  color: var(--muted-foreground);
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+  }
+  
+  .companyName {
+    font-size: var(--font-size-h4);
+  }
+
+  .metaRow {
+    font-size: var(--font-size-small);
+    gap: var(--spacing-xs);
+  }
+
+  .location {
+    font-size: var(--font-size-tiny);
+  }
+
+  .body {
+    gap: var(--spacing-sm);
+  }
+
+  .about,
+  .achievementText,
+  .narrative {
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+  }
+
+  .achievementWrapper {
+    padding-left: var(--spacing-sm);
+    gap: var(--spacing-1);
+  }
+}

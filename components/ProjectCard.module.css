@@ -1,0 +1,123 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--card-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  border: 1px solid transparent; /* Prepare for border transition */
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  max-height: 24rem;
+
+  /* Enhanced transitions */
+  transition:
+    transform var(--animation-duration-normal) var(--animation-ease),
+    box-shadow var(--animation-duration-normal) var(--animation-ease),
+    border-color var(--animation-duration-normal) var(--animation-ease),
+    background-color var(--animation-duration-normal) var(--animation-ease);
+}
+
+.card:hover {
+  /* Scale up with slight lift */
+  transform: scale(1.02) translateY(-2px);
+  
+  /* Enhanced shadow with subtle colored glow */
+  box-shadow: 
+    var(--shadow-2),
+    0 0 20px color-mix(in srgb, var(--primary), transparent 90%);
+    
+  /* Subtle border highlight */
+  border-color: color-mix(in srgb, var(--primary), transparent 80%);
+  
+  /* Slight background lighten/shift to indicate interactivity */
+  background-color: color-mix(in srgb, var(--card-secondary), var(--surface) 20%);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  flex-shrink: 1;
+  min-height: 0;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.title {
+  font-size: var(--font-size-h4);
+  font-weight: 600;
+  color: var(--surface-foreground);
+  transition: color var(--animation-duration-normal) ease;
+}
+
+.card:hover .title {
+  color: var(--primary);
+}
+
+.description {
+  color: var(--muted-foreground);
+  line-height: 1.5;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  font-size: var(--font-size-small);
+  max-height: 14rem;
+  min-height: 0;
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+  padding-top: var(--spacing-md);
+  padding: 0 var(--spacing-4);
+  height: 2.5rem;
+  width: 100%;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  font-family: var(--font-family-base);
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    background-color var(--animation-duration-fast) ease,
+    border-color var(--animation-duration-fast) ease,
+    transform var(--animation-duration-fast) ease,
+    box-shadow var(--animation-duration-fast) ease;
+}
+
+.actionButton:hover {
+  background-color: color-mix(in srgb, var(--primary), black 10%);
+  border-color: color-mix(in srgb, var(--primary), black 10%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--primary), transparent 60%);
+}
+
+.actionButton:active {
+  background-color: color-mix(in srgb, var(--primary), black 15%);
+  border-color: color-mix(in srgb, var(--primary), black 15%);
+  transform: translateY(0);
+}
+
+.actionButton:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--background),
+    0 0 0 4px var(--primary);
+}

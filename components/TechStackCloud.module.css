@@ -1,0 +1,121 @@
+.cloud {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  font-family: var(--font-family-base);
+  font-weight: 500;
+  white-space: nowrap;
+  
+  /* Use transform for hardware accelerated animation */
+  will-change: transform, opacity;
+  
+  /* Initial transition settings */
+  transition: 
+    transform var(--animation-duration-normal) var(--animation-ease-out),
+    opacity var(--animation-duration-normal) var(--animation-ease-out),
+    box-shadow var(--animation-duration-fast) var(--animation-ease);
+    
+  cursor: default;
+  user-select: none;
+  box-shadow: var(--shadow-1);
+
+  /* Set rotation variable default if not provided inline (though it usually is) */
+  --rotation: rotate(0deg);
+}
+
+/* Initial hidden state */
+.hidden {
+  opacity: 0;
+  transform: scale(0.8) var(--rotation);
+}
+
+/* Visible state - animate to full opacity and original rotation */
+.visible {
+  opacity: 1;
+  transform: scale(1) var(--rotation);
+}
+
+/* Hover state overrides */
+.pill:hover {
+  /* IMPORTANT: Reset transition delay to 0 so hover is instant */
+  transition-delay: 0ms !important; 
+  
+  transform: scale(1.05) !important; /* Override rotation on hover for clear focus */
+  box-shadow: var(--shadow-3);
+  z-index: var(--z-content-low);
+}
+
+/* Sizes */
+.sm {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-small);
+}
+
+.md {
+  padding: var(--spacing-3) var(--spacing-6);
+  font-size: var(--font-size-body);
+}
+
+.lg {
+  padding: var(--spacing-3) var(--spacing-8);
+  font-size: var(--font-size-h4);
+}
+
+/* Colors */
+.navy { background-color: var(--tech-navy); }
+.purple { background-color: var(--tech-purple); }
+.orange { background-color: var(--tech-orange); }
+.coral { background-color: var(--tech-coral); }
+.yellow { background-color: var(--tech-yellow); }
+.teal { background-color: var(--tech-teal); }
+.green { background-color: var(--tech-green); }
+.pink { background-color: var(--tech-pink); }
+
+/* Text Colors */
+.light {
+  color: var(--background);
+}
+.dark {
+  color: var(--foreground);
+}
+
+/* Desktop view - more spacious padding */
+@media (min-width: 1024px) {
+  .sm {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .md {
+    padding: 1rem 2rem;
+  }
+
+  .lg {
+    padding: 1.125rem 3rem;
+  }
+}
+
+/* Accessibility: Disable animations if user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .pill {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: var(--rotation) !important;
+  }
+  
+  .hidden {
+    opacity: 1;
+    transform: var(--rotation);
+  }
+}

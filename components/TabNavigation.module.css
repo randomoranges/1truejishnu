@@ -1,0 +1,94 @@
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  /* Ensure it doesn't take full width unnecessarily */
+  width: fit-content;
+  max-width: 100%;
+  pointer-events: auto; /* Re-enable clicks */
+}
+
+.tabsList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-1);
+  
+  /* Glassmorphism styles */
+  background-color: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  
+  padding: var(--spacing-1);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-2);
+  
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+:global(.dark) .tabsList {
+  background-color: rgba(30, 30, 30, 0.65);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.tabsList::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.tabTrigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2) var(--spacing-4);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  color: var(--muted-foreground);
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--animation-duration-normal) var(--animation-ease);
+}
+
+.tabTrigger:hover {
+  color: var(--foreground);
+}
+
+.tabTrigger:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.tabTrigger[data-state='active'] {
+  color: var(--foreground);
+  background-color: var(--surface);
+  box-shadow: var(--shadow-1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%; /* Allow full width on mobile for scrolling */
+    margin-right: 120px; /* Space for the fixed actions on the right */
+    justify-content: flex-start;
+  }
+
+  .tabsList {
+    justify-content: flex-start;
+    width: 100%;
+    gap: var(--spacing-1);
+    /* Remove glass border on mobile if it spans full width or keep pill */
+    padding: var(--spacing-1) var(--spacing-2);
+  }
+
+  .tabTrigger {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+}

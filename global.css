@@ -1,0 +1,307 @@
+@import url(https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Fira+Code:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Caveat:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root {
+  /* Content layers */
+  --z-content-low: 10; /* Minor elevated content */
+  --z-content: 20; /* Standard elevated content */
+  --z-content-high: 30; /* Important content that needs prominence */
+
+  /* Navigation layers */
+  --z-nav-low: 100; /* Secondary navigation components */
+  --z-nav: 200; /* Primary navigation bars */
+  --z-nav-sticky: 300; /* Sticky navigation elements */
+
+  /* Overlay layers */
+  --z-overlay: 400;
+
+  --z-spotlight: 1000; /* Tutorial spotlights/guided help */
+
+  /* System layers */
+  --z-critical: 2000; /* Critical system notifications */
+
+  /* Spacing System - 8px base unit */
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+  --spacing-xl: 40px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  --spacing-4xl: 80px;
+  --spacing-5xl: 120px;
+
+  /* Legacy spacing (for backwards compatibility) */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+
+  /* Light Mode - Neutral, Minimal palette */
+  --background: hsl(30 17% 96%); /* #F5F3F0 - warm beige/cream */
+  --foreground: hsl(0 0% 17%); /* #2B2B2B - deep charcoal */
+
+  --surface: hsl(0 0% 100%); /* #FFFFFF */
+  --surface-foreground: hsl(0 0% 17%);
+  --sidebar: hsl(30 17% 96%);
+  --sidebar-foreground: hsl(0 0% 17%);
+  --card: hsl(0 0% 100%); /* #FFFFFF */
+  --card-foreground: hsl(0 0% 17%);
+  --card-secondary: hsl(48 16% 90%); /* #E8E6E1 - light gray for project cards */
+  --popup: hsl(0 0% 100%);
+  --popup-foreground: hsl(0 0% 17%);
+
+  --primary: hsl(15 45% 58%); /* Muted warm coral/terracotta */
+  --primary-foreground: hsl(0 0% 17%);
+  --secondary: hsl(0 0% 42%); /* #6B6B6B - warm gray */
+  --secondary-foreground: hsl(0 0% 100%);
+  --accent: hsl(15 45% 58%); /* Muted warm coral/terracotta */
+  --accent-foreground: hsl(0 0% 17%);
+
+  --muted: hsl(40 33% 98%); /* #F9F8F6 - very light warm gray */
+  --muted-foreground: hsl(0 0% 42%); /* #6B6B6B */
+
+  --success: hsl(160 84% 39%); /* #10B981 */
+  --success-foreground: hsl(0 0% 100%);
+  --error: hsl(0 84% 60%); /* #EF4444 */
+  --error-foreground: hsl(0 0% 100%);
+  --warning: hsl(38 92% 50%); /* #F59E0B */
+  --warning-foreground: hsl(38 100% 10%);
+  --info: hsl(15 45% 58%); /* Same as primary for consistency */
+  --info-foreground: hsl(0 0% 17%);
+
+  --border: hsl(40 14% 82%); /* #D4D0C8 - subtle beige border */
+
+  /* Tech Stack Pill Colors - Light mode: muted, sophisticated, low saturation */
+  --tech-navy: hsl(220 30% 40%); /* Muted slate blue */
+  --tech-purple: hsl(0 0% 28%); /* Dark charcoal */
+  --tech-orange: hsl(15 35% 48%); /* Muted terracotta/burnt orange */
+  --tech-coral: hsl(20 32% 52%); /* Muted warm orange */
+  --tech-yellow: hsl(38 35% 68%); /* Warm tan/sand */
+  --tech-teal: hsl(200 25% 45%); /* Muted slate teal */
+  --tech-green: hsl(42 30% 70%); /* Warm beige */
+  --tech-pink: hsl(40 25% 88%); /* Light cream */
+
+  /* Font Families - Clean sans-serif with handwritten accent */
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-family-heading: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-family-monospace: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', 'Fira Code', Consolas, monospace;
+  --font-family-cursive: 'Caveat', cursive;
+
+  /* Typography Scale - Comfortable and readable */
+  --font-size-h1: 56px;
+  --font-weight-h1: 700;
+  --line-height-h1: 1.1;
+
+  --font-size-h2: 40px;
+  --font-weight-h2: 700;
+  --line-height-h2: 1.2;
+
+  --font-size-h3: 28px;
+  --font-weight-h3: 600;
+  --line-height-h3: 1.3;
+
+  --font-size-h4: 22px;
+  --font-weight-h4: 600;
+  --line-height-h4: 1.4;
+
+  --font-size-body: 17px;
+  --font-weight-body: 400;
+  --line-height-body: 1.65;
+
+  --font-size-small: 14px;
+  --font-weight-small: 400;
+  --line-height-small: 1.5;
+
+  --font-size-tiny: 12px;
+  --font-weight-tiny: 400;
+  --line-height-tiny: 1.4;
+
+  /* Elevation System (Shadows) - Subtle depth */
+  --shadow-0: none;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-2: 0 2px 4px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.08);
+  --shadow-3: 0 4px 8px rgba(0, 0, 0, 0.08), 0 6px 12px rgba(0, 0, 0, 0.1);
+  --shadow-4: 0 8px 16px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.12);
+
+  /* Legacy shadow variables */
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.08), 0 6px 12px rgba(0, 0, 0, 0.1);
+  --shadow-focus: 0 0 0 2px hsl(15 45% 58% / 0.3);
+
+  /* Border Radius - Organic, playful */
+  --radius-sm: 6px; /* Pills, tags */
+  --radius: 12px; /* Cards, buttons */
+  --radius-md: 12px;
+  --radius-lg: 16px; /* Hero sections, major cards */
+  --radius-xl: 24px; /* Special feature cards */
+  --radius-full: 9999px;
+
+  /* Rotation utilities for polaroid effect */
+  --rotate-1: 1deg;
+  --rotate-2: 2deg;
+  --rotate-3: 3deg;
+  --rotate-neg-1: -1deg;
+  --rotate-neg-2: -2deg;
+  --rotate-neg-3: -3deg;
+
+  /* Animation */
+  --animation-duration-fast: 200ms;
+  --animation-duration-normal: 300ms;
+  --animation-duration-slow: 600ms;
+  --animation-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --animation-ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Glow Effects */
+  --glow-primary: 0 0 20px hsl(15 45% 58% / 0.15);
+  --glow-primary-strong: 0 0 30px hsl(15 45% 58% / 0.25);
+
+  /* Responsive Breakpoints */
+  --breakpoint-mobile: 640px;
+  --breakpoint-tablet: 1024px;
+  --breakpoint-desktop: 1440px;
+  --container-max-width: 1280px;
+
+  /* Chart colors - Warm, minimal palette */
+  --chart-color-1: hsl(15 45% 58%); /* Muted warm coral */
+  --chart-color-2: hsl(25 39% 57%); /* Warm orange */
+  --chart-color-3: hsl(20 57% 76%); /* Peach */
+  --chart-color-4: hsl(0 0% 42%); /* Warm gray */
+  --chart-color-5: hsl(200 27% 25%); /* Navy */
+
+  /* Special Effects */
+  --aurora-gradient: radial-gradient(ellipse 50% 50% at 50% 50%, hsl(15 45% 58% / 0.06), hsl(0 0% 100% / 0));
+}
+
+.dark {
+  --background: hsl(30 6% 16%); /* #2B2A28 - warm dark */
+  --foreground: hsl(30 17% 96%); /* #F5F3F0 - warm off-white */
+
+  --surface: hsl(30 5% 22%); /* #3A3936 - dark warm card */
+  --surface-foreground: hsl(30 17% 96%);
+  --sidebar: hsl(30 6% 12%);
+  --sidebar-foreground: hsl(30 17% 95%);
+  --card: hsl(30 5% 22%); /* #3A3936 */
+  --card-foreground: hsl(30 17% 96%);
+  --card-secondary: hsl(30 5% 18%);
+  --popup: hsl(30 5% 22%);
+  --popup-foreground: hsl(30 17% 96%);
+
+  --primary: hsl(15 45% 58%); /* Muted warm coral/terracotta */
+  --primary-foreground: hsl(30 6% 16%);
+  --secondary: hsl(0 0% 60%); /* Lighter warm gray for dark mode */
+  --secondary-foreground: hsl(30 6% 10%);
+  --accent: hsl(15 45% 58%); /* Muted warm coral/terracotta */
+  --accent-foreground: hsl(30 6% 16%);
+
+  --muted: hsl(30 5% 18%);
+  --muted-foreground: hsl(0 0% 60%);
+
+  --success: hsl(160 84% 45%); /* Brighter green */
+  --success-foreground: hsl(30 6% 10%);
+  --error: hsl(0 84% 65%); /* Brighter red */
+  --error-foreground: hsl(30 6% 10%);
+  --warning: hsl(38 92% 55%); /* Brighter amber */
+  --warning-foreground: hsl(38 100% 10%);
+  --info: hsl(15 45% 58%);
+  --info-foreground: hsl(30 6% 16%);
+
+  --border: hsl(30 5% 22%); /* #3A3936 - dark warm border */
+
+  /* Tech Stack Pill Colors - Dark mode: muted, sophisticated, low saturation */
+  --tech-navy: hsl(220 35% 60%); /* Muted slate blue - lighter for dark bg */
+  --tech-purple: hsl(0 0% 65%); /* Light charcoal gray */
+  --tech-orange: hsl(15 40% 62%); /* Muted terracotta - lighter */
+  --tech-coral: hsl(20 38% 65%); /* Muted warm orange - lighter */
+  --tech-yellow: hsl(38 40% 72%); /* Warm tan/sand - slightly lighter */
+  --tech-teal: hsl(200 30% 62%); /* Muted slate teal - lighter */
+  --tech-green: hsl(42 35% 75%); /* Warm beige - lighter */
+  --tech-pink: hsl(40 30% 82%); /* Light cream - slightly less light */
+
+  /* Elevation System (Shadows) - Dark mode */
+  --shadow-0: none;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 2px 4px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.35);
+  --shadow-3: 0 4px 8px rgba(0, 0, 0, 0.35), 0 6px 12px rgba(0, 0, 0, 0.4);
+  --shadow-4: 0 8px 16px rgba(0, 0, 0, 0.4), 0 12px 24px rgba(0, 0, 0, 0.45);
+
+  /* Legacy shadow variables */
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.35), 0 6px 12px rgba(0, 0, 0, 0.4);
+  --shadow-focus: 0 0 0 2px hsl(15 45% 58% / 0.4);
+
+  /* Chart colors - Same for consistency */
+  --chart-color-1: hsl(15 45% 58%);
+  --chart-color-2: hsl(25 39% 57%);
+  --chart-color-3: hsl(20 57% 76%);
+  --chart-color-4: hsl(0 0% 60%);
+  --chart-color-5: hsl(200 27% 35%);
+
+  /* Special Effects - Dark mode aurora */
+  --aurora-gradient: radial-gradient(ellipse 50% 50% at 50% 50%, hsl(15 45% 58% / 0.1), hsl(0 0% 0% / 0));
+
+  /* Glow Effects - Dark mode */
+  --glow-primary: 0 0 20px hsl(15 45% 58% / 0.2);
+  --glow-primary-strong: 0 0 30px hsl(15 45% 58% / 0.35);
+}

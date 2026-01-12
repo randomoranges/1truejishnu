@@ -1,0 +1,64 @@
+.container {
+  display: inline-flex;
+  position: relative;
+}
+
+.settingsButton {
+  position: relative;
+  transition: transform var(--animation-duration-normal) ease;
+}
+
+.settingsButton:hover {
+  transform: scale(1.05) rotate(15deg);
+}
+
+.icon {
+  color: var(--foreground);
+  transition: transform var(--animation-duration-normal) ease;
+}
+
+.content {
+  width: 180px;
+}
+
+.menuLabel {
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-tiny);
+  font-weight: 500;
+  color: var(--muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.menuItemContent {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.menuIcon {
+  margin-right: var(--spacing-2);
+  color: currentColor;
+  width: 16px; /* Ensure consistent width for alignment */
+  text-align: center;
+}
+
+.activeItem {
+  font-weight: 500;
+  color: var(--primary);
+  background-color: color-mix(
+    in srgb,
+    var(--primary),
+    transparent 90%
+  ) !important;
+}
+
+.checkmark {
+  margin-left: auto;
+  font-weight: bold;
+}
+
+/* Dark mode adjustments */
+:global(.dark) .icon {
+  color: var(--foreground);
+}
