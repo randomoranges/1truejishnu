@@ -6,6 +6,10 @@
 .next {
   /* inherits the global --panel (#222047); kept fixed across themes */
   --panel-ink: hsl(0 0% 96%);
+  /* the panel never changes, so its pill keeps the accent in every theme;
+     dark ink so the text reads on the light accent */
+  --pill-bg: var(--accent-mark);
+  --pill-ink: hsl(243 38% 14%);
   --panel-dim: hsl(0 0% 96% / 0.55);
 
   position: relative;
@@ -132,14 +136,15 @@
 /* the thought the merged line arrives at */
 .lineFour {
   --in: 0.5;
-  top: 79vh;
+  top: 82vh;
   left: 50%;
   /* half of the width exactly, so the two can't resolve from different terms */
-  margin-left: calc(min(42ch, 84vw) / -2);
-  width: min(42ch, 84vw);
+  margin-left: calc(min(58ch, 92vw) / -2);
+  width: min(58ch, 92vw);
   max-width: none;
   text-align: center;
-  font-size: clamp(0.85rem, 1.1vw, 1rem);
+  font-size: clamp(0.68rem, 0.82vw, 0.8rem);
+  line-height: 1.65;
   color: var(--panel-dim);
 }
 
@@ -213,9 +218,21 @@
   }
 
   .lineThree {
-    top: 58vh;
+    top: 56vh;
     margin-left: -10ch;
     width: 20ch;
+  }
+
+  /* keep the closing thought clear of the viewport edges on a phone.
+     max-width must be cleared or the base .line 20ch cap narrows it and
+     throws the centring off. */
+  .lineFour {
+    top: 74vh;
+    margin-left: calc(min(40ch, 92vw) / -2);
+    width: min(40ch, 92vw);
+    max-width: none;
+    font-size: 0.7rem;
+    text-align: center;
   }
 }
 

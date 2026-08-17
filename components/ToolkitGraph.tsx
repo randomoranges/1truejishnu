@@ -35,8 +35,21 @@ type Node = {
 type Link = { a: number; b: number; rest: number };
 type Point = { x: number; y: number };
 
-const INK = "#141414";
-const PAPER = "#F7F7F7";
+const INK_FALLBACK = "#141414";
+const PAPER_FALLBACK = "#F7F7F7";
+
+/**
+ * Canvas needs hex to mix colours, but the theme tokens are arbitrary CSS
+ * colours. Assigning to fillStyle normalises whatever we give it.
+ */
+const scratch = document.createElement("canvas").getContext("2d");
+function toHex(css: string, fallback: string) {
+  if (!scratch) return fallback;
+  scratch.fillStyle = fallback;
+  scratch.fillStyle = css.trim();
+  const value = scratch.fillStyle;
+  return typeof value === "string" && value.startsWith("#") ? value : fallback;
+}
 
 const REPULSION = 1500;
 const REPULSION_RANGE = 170;
@@ -47,19 +60,6 @@ const MAX_SPEED = 7;
 const MAX_LABEL_LINES = 5;
 
 const REFERENCE_AREA = 1178 * 468;
-
-function tint(hex: string, amount: number) {
-  const n = parseInt(hex.slice(1), 16);
-  const r = (n >> 16) & 255;
-  const g = (n >> 8) & 255;
-  const b = n & 255;
-  const p = parseInt(PAPER.slice(1), 16);
-  const mix = (c: number, pc: number) => Math.round(c + (pc - c) * amount);
-  return `rgb(${mix(r, (p >> 16) & 255)}, ${mix(g, (p >> 8) & 255)}, ${mix(
-    b,
-    p & 255
-  )})`;
-}
 
 function wrapLabel(ctx: CanvasRenderingContext2D, text: string, maxWidth: number) {
   const words = text.split(" ");
@@ -118,6 +118,33 @@ export const ToolkitGraph = () => {
     const bctx = backdrop.getContext("2d");
     if (!bctx) return;
 
+    /** Resolved from the theme tokens, refreshed on resize. */
+    let ink = INK_FALLBACK;
+    let paper = PAPER_FALLBACK;
+
+    // Read from the stage, not the root: this section overrides the ground
+    // tokens in some themes, and custom properties inherit.
+    const readTheme = () => {
+      const cs = getComputedStyle(wrap);
+      ink = toHex(cs.getPropertyValue("--ink"), INK_FALLBACK);
+      paper = toHex(cs.getPropertyValue("--offwhite"), PAPER_FALLBACK);
+    };
+    readTheme();
+
+    /** Mixes a colour toward the page ground. */
+    const tint = (hex: string, amount: number) => {
+      const n = parseInt(hex.slice(1), 16);
+      const r = (n >> 16) & 255;
+      const g = (n >> 8) & 255;
+      const b = n & 255;
+      const p = parseInt(paper.slice(1), 16);
+      const mix = (c: number, pc: number) => Math.round(c + (pc - c) * amount);
+      return `rgb(${mix(r, (p >> 16) & 255)}, ${mix(g, (p >> 8) & 255)}, ${mix(
+        b,
+        p & 255
+      )})`;
+    };
+
     let width = 0;
     let height = 0;
     let dpr = 1;
@@ -154,7 +181,7 @@ export const ToolkitGraph = () => {
 
     const rootIndex = push({
       label: centerLabel,
-      color: INK,
+      color: ink,
       kind: "root",
       group: null,
       depth: 0,
@@ -221,6 +248,7 @@ export const ToolkitGraph = () => {
 
     // ---- sizing ----------------------------------------------------------
     const resize = () => {
+      readTheme();
       const rect = wrap.getBoundingClientRect();
       width = rect.width;
       height = rect.height;
@@ -594,7 +622,8 @@ export const ToolkitGraph = () => {
       }
       c.beginPath();
       c.arc(n.x, n.y, r, 0, Math.PI * 2);
-      c.fillStyle = lit ? n.color : tint(n.color, 0.7);
+      const base = n.kind === "root" ? ink : n.color;
+      c.fillStyle = lit ? base : tint(base, 0.7);
       c.fill();
     };
 
@@ -608,7 +637,7 @@ export const ToolkitGraph = () => {
         const y = n.y + radiusOf(n) + 7 + i * (size + 3);
         const halfWidth = c.measureText(line).width / 2;
         const lx = Math.min(width - halfWidth - 6, Math.max(halfWidth + 6, n.x));
-        c.strokeStyle = PAPER;
+        c.strokeStyle = paper;
         c.lineWidth = 3;
         c.strokeText(line, lx, y);
         c.fillText(line, lx, y);
@@ -630,14 +659,16 @@ export const ToolkitGraph = () => {
         if (isLit(n)) return;
         drawDot(bctx, n, false, false);
         if (n.kind !== "leaf") {
-          bctx.fillStyle = tint(INK, 0.45);
+          bctx.fillStyle = tint(ink, 0.45);
           drawCenteredLabel(bctx, n);
         }
       });
       bctx.restore();
 
-      bctx.fillStyle = "rgba(247, 247, 247, 0.55)";
+      bctx.fillStyle = paper;
+      bctx.globalAlpha = 0.55;
       bctx.fillRect(0, 0, width, height);
+      bctx.globalAlpha = 1;
       backdropDirty = false;
     };
 
@@ -672,7 +703,7 @@ export const ToolkitGraph = () => {
 
         const size = fontFor(n);
         ctx.font = `${size}px "JetBrains Mono", ui-monospace, monospace`;
-        ctx.fillStyle = n.kind === "leaf" ? tint(INK, 0.2) : INK;
+        ctx.fillStyle = n.kind === "leaf" ? tint(ink, 0.2) : ink;
 
         // Tree mode: one compact label to the right of every dot in the column
         if (treeMode && fanned) {
@@ -685,7 +716,7 @@ export const ToolkitGraph = () => {
           ctx.font = `${treeSize}px "JetBrains Mono", ui-monospace, monospace`;
           ctx.textAlign = "left";
           ctx.textBaseline = "middle";
-          ctx.fillStyle = depth === 0 ? INK : tint(INK, depth === 1 ? 0.15 : 0.35);
+          ctx.fillStyle = depth === 0 ? ink : tint(ink, depth === 1 ? 0.15 : 0.35);
 
           const lx = n.x + radiusOf(n) + 8;
           // never wider than the gap to the next column, nor past the canvas
@@ -694,7 +725,7 @@ export const ToolkitGraph = () => {
           const lead = treeSize + 3;
           const startY = n.y - ((lines.length - 1) * lead) / 2;
           lines.forEach((line, i) => {
-            ctx.strokeStyle = PAPER;
+            ctx.strokeStyle = paper;
             ctx.lineWidth = 3.5;
             ctx.strokeText(line, lx, startY + i * lead);
             ctx.fillText(line, lx, startY + i * lead);
@@ -716,9 +747,9 @@ export const ToolkitGraph = () => {
           let y = n.y - totalH / 2;
 
           ctx.font = `${size}px "JetBrains Mono", ui-monospace, monospace`;
-          ctx.fillStyle = tint(INK, 0.15);
+          ctx.fillStyle = tint(ink, 0.15);
           lines.forEach((line) => {
-            ctx.strokeStyle = PAPER;
+            ctx.strokeStyle = paper;
             ctx.lineWidth = 3.5;
             ctx.strokeText(line, lx, y);
             ctx.fillText(line, lx, y);
@@ -728,9 +759,9 @@ export const ToolkitGraph = () => {
           if (subLines.length) {
             y += 6;
             ctx.font = `${subSize}px "JetBrains Mono", ui-monospace, monospace`;
-            ctx.fillStyle = tint(INK, 0.5);
+            ctx.fillStyle = tint(ink, 0.5);
             subLines.forEach((line) => {
-              ctx.strokeStyle = PAPER;
+              ctx.strokeStyle = paper;
               ctx.lineWidth = 3.5;
               ctx.strokeText(line, lx, y);
               ctx.fillText(line, lx, y);

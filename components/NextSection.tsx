@@ -91,7 +91,7 @@ export const NextSection = () => {
                 rather than on a marker */}
             <path
               className={`${styles.thread} ${styles.threadMerged}`}
-              d="M 500 640 L 500 790"
+              d="M 500 640 L 500 845"
             />
           </svg>
 

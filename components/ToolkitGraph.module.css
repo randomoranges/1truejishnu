@@ -4,6 +4,14 @@
   padding: 8vh 0 14vh;
 }
 
+/* On green, the section itself keeps the page's green ground (heading/
+   description stay light). Only the container lifts to a greenish white with
+   dark ink, so the graph's own colours read against it. */
+:global([data-theme="malachite"]) .box {
+  --offwhite: hsl(156 40% 84%);
+  --ink: hsl(162 32% 10%);
+}
+
 .container {
   width: min(100% - 2 * var(--spacing-lg), 1180px);
   margin-inline: auto;

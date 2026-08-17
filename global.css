@@ -316,13 +316,21 @@
    Themes. Both grounds are chosen to sit well against the fixed
    #222047 closing panel, so that panel never has to change.
    --------------------------------------------------------------- */
+/* linen — the default: warm paper ground, near-black ink */
 :root,
-[data-theme="cool"] {
-  --offwhite: hsl(0 0% 97%);
-  --ink: hsl(0 0% 8%);
+[data-theme="linen"] {
+  --offwhite: hsl(41 44% 93%); /* #F5F0E5 */
+  --ink: hsl(28 16% 12%);
+  --accent-mark: hsl(217 89% 55%); /* #2C7BEF */
+  --pill-bg: var(--accent-mark);
+  --pill-ink: hsl(0 0% 100%);
 }
 
-[data-theme="warm"] {
-  --offwhite: hsl(41 44% 93%);
-  --ink: hsl(28 16% 12%);
+/* malachite — deep green ground, light ink */
+[data-theme="malachite"] {
+  --offwhite: hsl(162 65% 29%); /* #1A7A5E */
+  --ink: hsl(150 30% 96%);
+  --accent-mark: hsl(348 74% 88%); /* baby pink accent for the green theme */
+  --pill-bg: hsl(348 74% 88%); /* baby pink */
+  --pill-ink: hsl(345 40% 22%);
 }

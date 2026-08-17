@@ -48,18 +48,27 @@
   color: var(--ink);
 }
 
-/* a soft marker-pen wash, not a solid block */
+/* a hand-drawn underline: an accent-filled bar masked by a wobbly SVG stroke,
+   so its colour still follows the theme */
 .introEnd span {
-  background: linear-gradient(
-    to bottom,
-    transparent 12%,
-    color-mix(in srgb, var(--accent-mark) 16%, transparent) 12%,
-    color-mix(in srgb, var(--accent-mark) 16%, transparent) 92%,
-    transparent 92%
-  );
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  padding: 0 0.35em;
+  position: relative;
+  padding-bottom: 0.28em;
+}
+
+.introEnd span::after {
+  content: "";
+  position: absolute;
+  left: -0.15em;
+  right: -0.15em;
+  bottom: -0.02em;
+  height: 11px;
+  background: var(--accent-mark);
+  /* One long, irregular stroke stretched to the width — a single pen pass
+     that dips, thins and lifts, rather than a tiled wave. */
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 11' preserveAspectRatio='none'><path d='M4 6.2 C 70 4.1 120 7.8 190 5.9 C 250 4.3 300 3.4 372 5.1 C 430 6.5 470 8.2 528 5.6 C 560 4.2 582 5.0 596 4.6' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'/></svg>")
+    center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 11' preserveAspectRatio='none'><path d='M4 6.2 C 70 4.1 120 7.8 190 5.9 C 250 4.3 300 3.4 372 5.1 C 430 6.5 470 8.2 528 5.6 C 560 4.2 582 5.0 596 4.6' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'/></svg>")
+    center / 100% 100% no-repeat;
 }
 
 /* ---------------------------------------------------------------

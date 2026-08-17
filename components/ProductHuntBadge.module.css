@@ -1,5 +1,25 @@
+.wrap {
+  display: block;
+  position: relative;
+}
+
 .badge {
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* the light-on-dark variant sits on top, revealed only on green */
+.badgeDark {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+:global([data-theme="malachite"]) .badge {
+  opacity: 0;
+}
+
+:global([data-theme="malachite"]) .badgeDark {
+  opacity: 1;
 }

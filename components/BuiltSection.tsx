@@ -149,6 +149,7 @@ export const BuiltSection = () => {
                         <ProductHuntBadge
                           key={badge.src}
                           src={badge.src}
+                          srcDark={badge.srcDark}
                           alt={badge.alt}
                         />
                       ))}

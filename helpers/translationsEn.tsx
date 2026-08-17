@@ -79,10 +79,12 @@ export const en = {
         badges: [
           {
             src: "/badges/ph-product-of-the-week.png",
+            srcDark: "/badges/ph-product-of-the-week-light.png",
             alt: "Product Hunt — Product of the Week, #3 in Productivity",
           },
           {
             src: "/badges/ph-product-of-the-day.png",
+            srcDark: "/badges/ph-product-of-the-day-light.png",
             alt: "Product Hunt — Product of the Day, #4",
           },
         ],
