@@ -95,9 +95,15 @@
   --spacing-12: 3rem;
   --spacing-16: 4rem;
 
+  /* Editorial palette - off-white ground, near-black ink, one green accent */
+  --offwhite: hsl(0 0% 97%); /* #F7F7F7 - neutral off-white */
+  --ink: hsl(0 0% 8%); /* #141414 - near black */
+  --accent-mark: hsl(217 89% 55%); /* #2C7BEF - the single accent colour */
+  --panel: hsl(243 38% 20%); /* #222047 - the closing panel, fixed in both themes */
+
   /* Light Mode - Neutral, Minimal palette */
-  --background: hsl(30 17% 96%); /* #F5F3F0 - warm beige/cream */
-  --foreground: hsl(0 0% 17%); /* #2B2B2B - deep charcoal */
+  --background: var(--offwhite);
+  --foreground: var(--ink);
 
   --surface: hsl(0 0% 100%); /* #FFFFFF */
   --surface-foreground: hsl(0 0% 17%);
@@ -304,4 +310,19 @@
   /* Glow Effects - Dark mode */
   --glow-primary: 0 0 20px hsl(15 45% 58% / 0.2);
   --glow-primary-strong: 0 0 30px hsl(15 45% 58% / 0.35);
+}
+
+/* ---------------------------------------------------------------
+   Themes. Both grounds are chosen to sit well against the fixed
+   #222047 closing panel, so that panel never has to change.
+   --------------------------------------------------------------- */
+:root,
+[data-theme="cool"] {
+  --offwhite: hsl(0 0% 97%);
+  --ink: hsl(0 0% 8%);
+}
+
+[data-theme="warm"] {
+  --offwhite: hsl(41 44% 93%);
+  --ink: hsl(28 16% 12%);
 }

@@ -1,0 +1,255 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--offwhite);
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  padding: var(--spacing-lg);
+}
+
+/* ---------------------------------------------------------------
+   Curved wordmark in the top-right corner
+   --------------------------------------------------------------- */
+.markWrap {
+  position: absolute;
+  top: clamp(4px, 0.6vw, 14px);
+  /* a hair of margin: the tail of the name reaches the edge without touching */
+  right: 0.35vw;
+  width: clamp(200px, 33vw, 470px);
+  aspect-ratio: 1;
+  z-index: var(--z-content-high);
+  cursor: pointer;
+  outline: none;
+}
+
+.markWrap:focus-visible .wordmark {
+  opacity: 0.65;
+}
+
+.wordmark {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* the glyphs ride outside the arc's bounding box */
+  overflow: visible;
+  transform: rotate(var(--wordmark-drift, 0deg));
+  transform-origin: 62% 38%;
+  will-change: transform;
+  transition: opacity var(--animation-duration-normal) var(--animation-ease);
+}
+
+.wordmarkText {
+  font-family: var(--font-family-base);
+  font-weight: 500;
+  font-size: 94px;
+  letter-spacing: -0.03em;
+  fill: var(--ink);
+}
+
+/* ---------------------------------------------------------------
+   The name's meaning, on hover
+   --------------------------------------------------------------- */
+.meaning {
+  position: absolute;
+  /* Nestled into the concave side of the arc rather than pinned under the
+     corner, so the name curves around it. */
+  top: 50%;
+  right: 28%;
+  width: min(20rem, 74vw);
+  padding: 1rem 1.15rem;
+
+  /* Off-kilter radius: one tight corner points back at the name, the rest
+     swell — reads as a droplet, not a card. */
+  border-radius: 1.9rem 0.3rem 1.9rem 1.6rem;
+
+  /* liquid glass — it is meant to sit over the type and photo */
+  background: hsl(0 0% 100% / 0.46);
+  -webkit-backdrop-filter: blur(22px) saturate(1.8);
+  backdrop-filter: blur(22px) saturate(1.8);
+  box-shadow: 0 0 0 1px hsl(0 0% 100% / 0.55),
+    0 14px 40px hsl(0 0% 0% / 0.12), inset 0 1px 0 hsl(0 0% 100% / 0.6);
+  color: var(--ink);
+
+  opacity: 0;
+  transform: translate(6px, -8px) scale(0.96);
+  transform-origin: top right;
+  pointer-events: none;
+  transition: opacity 260ms var(--animation-ease-out),
+    transform 320ms var(--animation-ease-out);
+}
+
+/* the tight corner gets a node, tying it to the accent used elsewhere */
+.meaning::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--accent-mark);
+}
+
+.meaningOn {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+.meaningTitle {
+  display: block;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-tiny);
+  letter-spacing: 0.04em;
+  color: var(--accent-mark);
+  margin-bottom: 0.4rem;
+}
+
+.meaningBody {
+  margin: 0;
+  font-family: var(--font-family-monospace);
+  font-size: 11px;
+  line-height: 1.7;
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+
+/* ---------------------------------------------------------------
+   Centre stage: the intro block + photo
+   --------------------------------------------------------------- */
+.stage {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+/* the pill straddles the last two lines of the intro */
+.introPill {
+  --pill-tilt: -1.6deg;
+  top: 62%;
+  left: 6%;
+}
+
+.controls {
+  position: absolute;
+  left: var(--spacing-lg);
+  bottom: var(--spacing-lg);
+  z-index: var(--z-content-high);
+}
+
+.intro {
+  position: relative;
+  z-index: var(--z-content);
+  font-family: var(--font-family-monospace);
+  font-size: clamp(1rem, 1.65vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.85;
+  letter-spacing: -0.01em;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.line {
+  display: block;
+  padding-left: calc(var(--indent, 0) * 1ch);
+  opacity: 0;
+  transform: translateY(0.6em);
+  animation: riseIn 0.85s var(--animation-ease-out) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes riseIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* The photo sits over the tail of the text, tilted */
+.photo {
+  position: absolute;
+  z-index: var(--z-content-low);
+  top: -0.4em;
+  left: 100%;
+  margin-left: -4ch;
+  width: clamp(120px, 11vw, 176px);
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  transform: rotate(3.5deg);
+  opacity: 0;
+  animation: settle 1s var(--animation-ease-out) 0.75s forwards;
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: rotate(9deg) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(3.5deg) scale(1);
+  }
+}
+
+/* ---------------------------------------------------------------
+   Responsive
+   --------------------------------------------------------------- */
+
+@media (max-width: 640px) {
+  .hero {
+    padding: var(--spacing-md);
+    place-items: center start;
+  }
+
+  .intro {
+    font-size: 0.95rem;
+    line-height: 2;
+    white-space: normal;
+  }
+
+  .line {
+    padding-left: calc(var(--indent, 0) * 0.5ch);
+  }
+
+  .photo {
+    position: static;
+    display: block;
+    margin: var(--spacing-lg) 0 0 auto;
+    width: 128px;
+  }
+
+  .markWrap {
+    width: clamp(150px, 46vw, 220px);
+  }
+
+  .introPill {
+    top: auto;
+    bottom: -2.4rem;
+    left: 0;
+  }
+
+  .controls {
+    left: var(--spacing-md);
+    bottom: var(--spacing-md);
+  }
+
+  .wordmarkText {
+    font-size: 94px;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line,
+  .photo {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .photo {
+    transform: rotate(3.5deg);
+  }
+}

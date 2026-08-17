@@ -3,6 +3,9 @@ import react from "@vitejs/plugin-react-swc";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 
 export default defineConfig(() => ({
+  // The production server (server.ts) serves ./static at the root, so the dev
+  // server has to do the same or asset paths only work in one of the two.
+  publicDir: "static",
   plugins: [
     nodePolyfills({
       include: ["stream", "crypto", "process"],

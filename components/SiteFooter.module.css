@@ -1,0 +1,237 @@
+/* ---------------------------------------------------------------
+   The footer continues the dark panel above without a seam. The thread
+   that merged in the previous section arrives here and spreads into the
+   rule the footer hangs from.
+   --------------------------------------------------------------- */
+.footer {
+  /* inherits the global --panel (#222047); kept fixed across themes */
+  --panel-ink: hsl(0 0% 96%);
+  --panel-dim: hsl(0 0% 96% / 0.45);
+
+  position: relative;
+  background: var(--panel);
+  color: var(--panel-ink);
+  padding: 0 0 9vh;
+}
+
+.inner {
+  position: relative;
+  width: min(100% - 2 * var(--spacing-lg), 1180px);
+  margin-inline: auto;
+}
+
+/* ---------------------------------------------------------------
+   The arriving thread
+   --------------------------------------------------------------- */
+.arrival {
+  position: relative;
+  height: 15vh;
+  min-height: 108px;
+}
+
+.stem {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: hsl(0 0% 96% / 0.28);
+  transform-origin: top center;
+  transform: scaleY(0);
+  transition: transform 800ms var(--animation-ease-out);
+}
+
+.spread {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    hsl(0 0% 96% / 0.16) 18%,
+    hsl(0 0% 96% / 0.16) 82%,
+    transparent
+  );
+  transform-origin: center;
+  transform: scaleX(0);
+  transition: transform 1000ms var(--animation-ease-out) 640ms;
+}
+
+.visible .stem {
+  transform: scaleY(1);
+}
+
+.visible .spread {
+  transform: scaleX(1);
+}
+
+/* ---------------------------------------------------------------
+   Content — socials, email, identity
+   --------------------------------------------------------------- */
+.columns {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+  gap: var(--spacing-lg);
+  padding-top: 8vh;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 700ms var(--animation-ease-out) 900ms,
+    transform 700ms var(--animation-ease-out) 900ms;
+}
+
+.visible .columns {
+  opacity: 1;
+  transform: none;
+}
+
+/* socials sit on the right, identity on the left */
+.socials {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.social {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-small);
+  color: var(--panel-dim);
+  text-decoration: none;
+  transition: color var(--animation-duration-normal) var(--animation-ease);
+}
+
+.social::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: var(--radius-full);
+  background: currentColor;
+  transition: background-color var(--animation-duration-normal) var(--animation-ease),
+    transform var(--animation-duration-normal) var(--animation-ease-bounce);
+}
+
+.social:hover,
+.social:focus-visible {
+  color: var(--panel-ink);
+}
+
+.social:hover::before,
+.social:focus-visible::before {
+  background: var(--accent-mark);
+  transform: scale(1.6);
+}
+
+/* email sits in the middle, the largest thing down here */
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.email {
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-small);
+  color: var(--panel-ink);
+  text-decoration: none;
+  border-bottom: 1px solid hsl(0 0% 96% / 0.25);
+  padding-bottom: 0.25rem;
+  transition: border-color var(--animation-duration-normal) var(--animation-ease);
+}
+
+.email:hover,
+.email:focus-visible {
+  border-bottom-color: var(--accent-mark);
+}
+
+.copy {
+  background: none;
+  border: none;
+  padding: 0.15rem 0;
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-small);
+  color: hsl(0 0% 96% / 0.35);
+  cursor: pointer;
+  transition: color var(--animation-duration-normal) var(--animation-ease);
+}
+
+.copy:hover,
+.copy:focus-visible {
+  color: var(--panel-ink);
+}
+
+.copyDone {
+  color: var(--accent-mark);
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  text-align: left;
+}
+
+.identityName {
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-small);
+  color: var(--panel-ink);
+}
+
+.identityRights {
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-small);
+  color: var(--panel-dim);
+}
+
+/* ---------------------------------------------------------------
+   Responsive
+   --------------------------------------------------------------- */
+@media (max-width: 780px) {
+  .columns {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .socials {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .identity {
+    align-items: center;
+    text-align: center;
+  }
+
+  .socials {
+    align-items: center;
+  }
+
+  /* email first on a phone — it is the thing people actually want */
+  .contact {
+    order: -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stem,
+  .spread,
+  .columns {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}

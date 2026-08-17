@@ -1,0 +1,264 @@
+/* ---------------------------------------------------------------
+   The closing section: the only dark panel on the page, and the only
+   one whose motion is scrubbed by scroll position rather than played
+   once on entry.
+   --------------------------------------------------------------- */
+.next {
+  /* inherits the global --panel (#222047); kept fixed across themes */
+  --panel-ink: hsl(0 0% 96%);
+  --panel-dim: hsl(0 0% 96% / 0.55);
+
+  position: relative;
+  height: 300vh;
+  background: var(--panel);
+  color: var(--panel-ink);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.stage {
+  position: relative;
+  width: min(100% - 2 * var(--spacing-lg), 1180px);
+  height: 100%;
+  margin-inline: auto;
+}
+
+.label {
+  position: absolute;
+  top: 8vh;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-tiny);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: hsl(0 0% 96% / 0.4);
+}
+
+.label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: hsl(0 0% 96% / 0.15);
+}
+
+/* ---------------------------------------------------------------
+   The two threads, drawn top-down by a moving mask as you scroll
+   --------------------------------------------------------------- */
+.threads {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* clears away entirely before the closing statement arrives */
+  opacity: calc(1 - clamp(0, (var(--p) - 0.6) * 7, 1));
+  /* Reveal starts level with the top of the rails, not the top of the panel,
+     so the first scroll immediately draws something. */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 calc(17% + clamp(0, (var(--p) - 0.04) / 0.55, 1) * 83%),
+    transparent 0
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 calc(17% + clamp(0, (var(--p) - 0.04) / 0.55, 1) * 83%),
+    transparent 0
+  );
+}
+
+.thread {
+  fill: none;
+  stroke: hsl(0 0% 96% / 0.5);
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+}
+
+.threadMerged {
+  stroke: hsl(0 0% 96% / 0.75);
+}
+
+
+/* ---------------------------------------------------------------
+   The three statements
+   --------------------------------------------------------------- */
+.line {
+  position: absolute;
+  margin: 0;
+  max-width: 24ch;
+  font-family: var(--font-family-monospace);
+  font-size: clamp(0.95rem, 1.35vw, 1.25rem);
+  line-height: 1.75;
+  color: var(--panel-ink);
+  /* fade in on its own beat, then out together as the closer arrives */
+  opacity: calc(
+    clamp(0, (var(--p) - var(--in)) * 12, 1) *
+      clamp(0, (0.72 - var(--p)) * 12, 1)
+  );
+  transform: translateY(calc((1 - clamp(0, (var(--p) - var(--in)) * 12, 1)) * 12px));
+  will-change: opacity, transform;
+}
+
+.lineOne {
+  --in: 0.06;
+  top: 20vh;
+  left: 0;
+}
+
+.lineTwo {
+  --in: 0.2;
+  top: 36vh;
+  right: 0;
+  text-align: right;
+}
+
+.lineThree {
+  --in: 0.4;
+  top: 66vh;
+  left: 50%;
+  margin-left: -12ch;
+  width: 24ch;
+  text-align: center;
+}
+
+/* the thought the merged line arrives at */
+.lineFour {
+  --in: 0.5;
+  top: 79vh;
+  left: 50%;
+  /* half of the width exactly, so the two can't resolve from different terms */
+  margin-left: calc(min(42ch, 84vw) / -2);
+  width: min(42ch, 84vw);
+  max-width: none;
+  text-align: center;
+  font-size: clamp(0.85rem, 1.1vw, 1rem);
+  color: var(--panel-dim);
+}
+
+/* each wrapped line gets its own panel-coloured backing */
+.knockout {
+  background: var(--panel);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0.12em 0.6em;
+}
+
+/* ---------------------------------------------------------------
+   The closer
+   --------------------------------------------------------------- */
+.closer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(100%, 46rem);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* sits between the statement and the note */
+.closerPill {
+  --pill-tilt: -1.4deg;
+  left: 50%;
+  translate: -50% 0;
+  bottom: -1.6rem;
+}
+
+.statement {
+  font-family: var(--font-family-base);
+  font-weight: 500;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  margin: 0 0 var(--spacing-lg);
+  opacity: clamp(0, (var(--p) - 0.72) * 8, 1);
+  transform: translateY(calc((1 - clamp(0, (var(--p) - 0.72) * 8, 1)) * 24px));
+  will-change: opacity, transform;
+}
+
+.note {
+  font-family: var(--font-family-monospace);
+  font-size: clamp(0.9rem, 1.15vw, 1.05rem);
+  line-height: 1.85;
+  max-width: 46ch;
+  margin: 0 auto;
+  color: var(--panel-dim);
+  opacity: clamp(0, (var(--p) - 0.82) * 9, 1);
+  transform: translateY(calc((1 - clamp(0, (var(--p) - 0.82) * 9, 1)) * 16px));
+  will-change: opacity, transform;
+}
+
+/* ---------------------------------------------------------------
+   Responsive
+   --------------------------------------------------------------- */
+@media (max-width: 720px) {
+  .line {
+    max-width: 20ch;
+    font-size: 0.9rem;
+  }
+
+  .lineOne {
+    top: 22vh;
+  }
+
+  .lineTwo {
+    top: 38vh;
+  }
+
+  .lineThree {
+    top: 58vh;
+    margin-left: -10ch;
+    width: 20ch;
+  }
+}
+
+/* Without scroll animation the section still has to read, so everything
+   is simply present. */
+@media (prefers-reduced-motion: reduce) {
+  .next {
+    height: auto;
+    padding: 14vh 0;
+  }
+
+  .sticky {
+    position: static;
+    height: auto;
+  }
+
+  .stage {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .label,
+  .line,
+  .closer {
+    position: static;
+    opacity: 1;
+    transform: none;
+    text-align: left;
+    margin-left: 0;
+    width: auto;
+    max-width: 46ch;
+  }
+
+  .statement,
+  .note {
+    opacity: 1;
+    transform: none;
+    margin-inline: 0;
+  }
+
+  .threads {
+    display: none;
+  }
+}

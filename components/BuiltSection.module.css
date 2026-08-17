@@ -1,0 +1,308 @@
+.section {
+  position: relative;
+  background: var(--offwhite);
+  color: var(--ink);
+  padding: 14vh 0 18vh;
+}
+
+.container {
+  width: min(100% - 2 * var(--spacing-lg), 1180px);
+  margin-inline: auto;
+}
+
+/* ---------------------------------------------------------------
+   Section opener
+   --------------------------------------------------------------- */
+.label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-tiny);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 55%, transparent);
+  margin-bottom: 4rem;
+}
+
+.label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: color-mix(in srgb, var(--ink) 15%, transparent);
+}
+
+.intro {
+  font-family: var(--font-family-monospace);
+  font-size: clamp(0.95rem, 1.15vw, 1.15rem);
+  line-height: 1.9;
+  max-width: 64ch;
+  margin: 0 0 1.75rem;
+}
+
+.introEnd {
+  font-family: var(--font-family-monospace);
+  font-size: clamp(0.95rem, 1.15vw, 1.15rem);
+  line-height: 1.9;
+  margin: 0 0 12vh;
+  color: var(--ink);
+}
+
+/* a soft marker-pen wash, not a solid block */
+.introEnd span {
+  background: linear-gradient(
+    to bottom,
+    transparent 12%,
+    color-mix(in srgb, var(--accent-mark) 16%, transparent) 12%,
+    color-mix(in srgb, var(--accent-mark) 16%, transparent) 92%,
+    transparent 92%
+  );
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.35em;
+}
+
+/* ---------------------------------------------------------------
+   One project = sticky identity column + scrolling beats
+   --------------------------------------------------------------- */
+.project {
+  display: grid;
+  grid-template-columns: minmax(0, 4.5fr) 1px minmax(0, 7fr);
+  gap: 0 clamp(2rem, 4vw, 4.5rem);
+  padding-bottom: 16vh;
+}
+
+.project:last-child {
+  padding-bottom: 0;
+}
+
+.meta {
+  position: sticky;
+  top: 20vh;
+  align-self: start;
+}
+
+.index {
+  display: block;
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-tiny);
+  letter-spacing: 0.16em;
+  color: color-mix(in srgb, var(--ink) 40%, transparent);
+  margin-bottom: var(--spacing-sm);
+}
+
+.name {
+  font-family: var(--font-family-base);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 4.6vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  margin: 0 0 var(--spacing-sm);
+}
+
+/* 2Read's full stop, in the product's own colour */
+.nameDot {
+  color: #da7756;
+}
+
+.metaLine {
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-small);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--ink) 55%, transparent);
+  margin: 0 0 var(--spacing-md);
+  max-width: 30ch;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+}
+
+.link {
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-small);
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 25%, transparent);
+  padding-bottom: 2px;
+  transition: border-color var(--animation-duration-normal) var(--animation-ease),
+    color var(--animation-duration-normal) var(--animation-ease);
+}
+
+.link:hover,
+.link:focus-visible {
+  border-bottom-color: var(--accent-mark);
+  color: var(--accent-mark);
+}
+
+.link .arrow {
+  display: inline-block;
+  transition: transform var(--animation-duration-normal) var(--animation-ease);
+}
+
+.link:hover .arrow,
+.link:focus-visible .arrow {
+  transform: translate(2px, -2px);
+}
+
+/* Product Hunt badges, under the links in the identity column */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+  max-width: 22rem;
+}
+
+.badges > * {
+  flex: 1 1 9rem;
+  min-width: 8rem;
+  max-width: 11rem;
+}
+
+/* ---------------------------------------------------------------
+   "See more" toggle
+   --------------------------------------------------------------- */
+.moreWrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 2vh;
+}
+
+.moreButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: none;
+  border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent);
+  border-radius: var(--radius-full);
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-small);
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color var(--animation-duration-normal) var(--animation-ease),
+    background-color var(--animation-duration-normal) var(--animation-ease);
+}
+
+.moreButton:hover,
+.moreButton:focus-visible {
+  border-color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+.moreCount {
+  color: color-mix(in srgb, var(--ink) 45%, transparent);
+}
+
+.moreChevron {
+  transition: transform var(--animation-duration-normal) var(--animation-ease);
+}
+
+.moreButton[aria-expanded="true"] .moreChevron {
+  transform: rotate(180deg);
+}
+
+/* The hairline between the columns fills as you read the project */
+.rule {
+  position: relative;
+  width: 1px;
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
+}
+
+.ruleFill {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 100%;
+  background: var(--ink);
+  transform: scaleY(var(--progress, 0));
+  transform-origin: top center;
+  will-change: transform;
+}
+
+/* ---------------------------------------------------------------
+   Beats
+   --------------------------------------------------------------- */
+.beats {
+  display: flex;
+  flex-direction: column;
+  gap: 4.5rem;
+  padding-top: 0.6rem;
+}
+
+.beatLabel {
+  display: block;
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-tiny);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 45%, transparent);
+  margin-bottom: var(--spacing-sm);
+}
+
+.beatBody {
+  font-family: var(--font-family-monospace);
+  font-size: clamp(0.95rem, 1.2vw, 1.2rem);
+  line-height: 1.85;
+  margin: 0;
+  max-width: 58ch;
+}
+
+/* "What's next" reads as an aside, not another beat */
+.next {
+  border-left: 2px solid var(--accent-mark);
+  padding-left: var(--spacing-md);
+}
+
+.next .beatLabel {
+  color: var(--accent-mark);
+}
+
+.next .beatBody {
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+/* ---------------------------------------------------------------
+   Responsive
+   --------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .project {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    padding-bottom: 12vh;
+  }
+
+  .meta {
+    position: static;
+  }
+
+  .rule {
+    width: 100%;
+    height: 1px;
+  }
+
+  .ruleFill {
+    inset: 0 auto 0 0;
+    width: 100%;
+    height: 1px;
+    transform: scaleX(var(--progress, 0));
+    transform-origin: left center;
+  }
+
+  .beats {
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 10vh 0 12vh;
+  }
+
+  .introEnd {
+    margin-bottom: 8vh;
+  }
+}

@@ -11,6 +11,14 @@ export const de = {
   },
   hero: {
     name: "Jishnu Sai Matra",
+    wordmark: "Jishnuuu.",
+    lines: [
+      "Hallo! :)",
+      "Ich bin Jishnu und verbinde Technik, Design",
+      "und Neugier, um aus Ideen Produkte zu machen,",
+      "die Menschen gerne benutzen.",
+    ],
+    photoAlt: "Jishnu Sai Matra",
     tagline: "Product Builder × Datenanalyst × Strategischer Denker",
     description:
       "MBA-Student in Business Analytics, der programmiert, Produkte auf den Markt bringt und Daten in Entscheidungen umwandelt. Ingenieurwissenschaftlicher Hintergrund, unternehmerische Denkweise, Geschäftssinn.",

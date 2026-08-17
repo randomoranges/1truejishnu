@@ -1,0 +1,64 @@
+.pill {
+  position: absolute;
+  z-index: var(--z-content-high);
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--radius-full);
+  background: var(--accent-mark);
+  color: hsl(0 0% 100%);
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-tiny);
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  pointer-events: none;
+
+  opacity: 0;
+  transform: translateY(4px) scale(0.96) rotate(var(--pill-tilt, -1.5deg));
+  transition: opacity 240ms var(--animation-ease-out),
+    transform 240ms var(--animation-ease-out);
+}
+
+.on {
+  opacity: 1;
+  transform: translateY(0) scale(1) rotate(var(--pill-tilt, -1.5deg));
+}
+
+/* the one-time "I'm here" wiggle */
+.hint {
+  animation: nudge 620ms var(--animation-ease) 1;
+}
+
+@keyframes nudge {
+  0%,
+  100% {
+    rotate: 0deg;
+  }
+  15% {
+    rotate: -2.6deg;
+  }
+  35% {
+    rotate: 2.2deg;
+  }
+  55% {
+    rotate: -1.6deg;
+  }
+  75% {
+    rotate: 1deg;
+  }
+}
+
+@media (max-width: 640px) {
+  .pill {
+    font-size: 10px;
+    padding: 0.25rem 0.7rem;
+    white-space: normal;
+    max-width: 78vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hint {
+    animation: none;
+  }
+}

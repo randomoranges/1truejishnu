@@ -1,0 +1,52 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-tiny);
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--ink) 45%, transparent);
+  transition: color var(--animation-duration-normal) var(--animation-ease);
+}
+
+.toggle:hover,
+.toggle:focus-visible {
+  color: var(--ink);
+}
+
+.track {
+  position: relative;
+  width: 34px;
+  height: 18px;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--accent-mark) 18%, transparent);
+  transition: background-color var(--animation-duration-normal) var(--animation-ease);
+}
+
+.knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: var(--accent-mark);
+  transition: transform var(--animation-duration-normal) var(--animation-ease-bounce);
+}
+
+.on .knob {
+  transform: translateX(16px);
+}
+
+.on .track {
+  background: color-mix(in srgb, var(--accent-mark) 30%, transparent);
+}
+
+.label {
+  min-width: 3.2em;
+  text-align: left;
+}
