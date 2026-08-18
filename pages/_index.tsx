@@ -6,6 +6,7 @@ import { BuiltSection } from "../components/BuiltSection";
 import { ToolkitGraph } from "../components/ToolkitGraph";
 import { NextSection } from "../components/NextSection";
 import { SiteFooter } from "../components/SiteFooter";
+import { CustomCursor } from "../components/CustomCursor";
 import styles from "./_index.module.css";
 
 /* ------------------------------------------------------------------
@@ -76,6 +77,8 @@ export default function HomePage() {
 
         <style>{`html { scroll-behavior: smooth; }`}</style>
       </Helmet>
+
+      <CustomCursor />
 
       <div className={styles.page}>
         <Hero />

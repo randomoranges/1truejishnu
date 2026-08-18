@@ -1,0 +1,71 @@
+/* Opt-in: picks up .on only once the effect confirms a fine pointer and no
+   reduced-motion preference. */
+.ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  transform: translate(-50%, -50%);
+  border: 1.4px solid #fff;
+  border-radius: var(--radius-full);
+  pointer-events: none;
+  z-index: var(--z-critical);
+  mix-blend-mode: difference;
+  opacity: 0;
+  will-change: left, top;
+  transition: width 260ms var(--animation-ease-out),
+    height 260ms var(--animation-ease-out),
+    opacity 300ms var(--animation-ease);
+}
+
+.on {
+  opacity: 1;
+}
+
+/* over something clickable the ring opens up a touch */
+.ring.active {
+  width: 44px;
+  height: 44px;
+}
+
+/* a small squeeze on press */
+.ring.press {
+  width: 24px;
+  height: 24px;
+}
+
+.ring.hidden {
+  opacity: 0;
+}
+
+/* ---------------------------------------------------------------
+   The accent indicator dot — shown only over interactive elements,
+   painting normally so it keeps its colour (the ring's difference
+   blend does not apply to it).
+   --------------------------------------------------------------- */
+.dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: var(--radius-full);
+  background: var(--accent-mark);
+  pointer-events: none;
+  z-index: var(--z-critical);
+  opacity: 0;
+  will-change: left, top;
+  transition: transform 200ms var(--animation-ease-bounce),
+    opacity 200ms var(--animation-ease);
+}
+
+.dot.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.dot.hidden {
+  opacity: 0;
+}

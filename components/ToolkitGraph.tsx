@@ -273,7 +273,16 @@ export const ToolkitGraph = () => {
     };
 
     const radiusOf = (n: Node) => n.r * (scale < 0.8 ? 0.85 : 1);
-    const labelRoom = () => Math.min(250, width * 0.34);
+
+    // On a phone two side-by-side columns leave each label too little width,
+    // so long entries wrapped past the line cap and got cut. There we switch
+    // to a single left-hand column and let labels use nearly the full width.
+    const isNarrow = () => width < 560;
+    const narrowColX = () => Math.min(42, width * 0.13);
+    const labelRoom = () =>
+      isNarrow()
+        ? width - narrowColX() - 24
+        : Math.min(250, width * 0.34);
 
     const fontFor = (n: Node) => {
       const shrink = scale < 0.8 ? 0.85 : 1;
@@ -338,6 +347,26 @@ export const ToolkitGraph = () => {
       if (!kids.length) return;
 
       const anchor = { x: parent.x, y: parent.y };
+
+      // Phone: one column of dots down the left, labels stretching right.
+      if (isNarrow()) {
+        const colX = narrowColX();
+        const heights = kids.map((k) =>
+          Math.max(28, measureFanned(nodes[k]).totalH + 14)
+        );
+        const total = heights.reduce((a, b) => a + b, 0);
+        let y = Math.min(
+          Math.max(14, height - 14 - total),
+          Math.max(14, anchor.y - total / 2)
+        );
+        kids.forEach((k, i) => {
+          openTargets.set(k, { x: colX, y: y + heights[i] / 2 });
+          openSides.set(k, true);
+          y += heights[i];
+        });
+        return;
+      }
+
       const pad = labelRoom();
       const offsetX = Math.max(100, 160 * scale);
       const rightCount = Math.ceil(kids.length / 2);
@@ -381,9 +410,52 @@ export const ToolkitGraph = () => {
      * row, leaves stack, and each parent centres on its children. Rows are
      * compressed to fit rather than spilling off the canvas.
      */
+    /** Font size a tree row uses at a given depth (mirrors the drawing). */
+    const treeFont = (depth: number) =>
+      Math.round(
+        (depth === 0 ? 13 : depth === 1 ? 11.5 : 10.5) * (scale < 0.8 ? 0.88 : 1)
+      );
+
     const layoutTree = (clusterIndex: number) => {
       openTargets.clear();
       openSides.clear();
+
+      // Phone: a horizontal tree can't fit, so stack the whole thing as one
+      // indented list. Every node is a row; labels run right with full width.
+      if (isNarrow()) {
+        const indent = Math.min(16, width * 0.045);
+        const baseX = 18;
+
+        // measure each node's row height from its own wrapped label
+        const rowH = (idx: number, depth: number) => {
+          const size = treeFont(depth);
+          ctx.font = `${size}px "JetBrains Mono", ui-monospace, monospace`;
+          const lx = baseX + depth * indent + radiusOf(nodes[idx]) + 8;
+          const room = Math.max(80, width - lx - 10);
+          const lines = wrapCached(ctx, nodes[idx].label, room, size).length;
+          return lines * (size + 3) + 12;
+        };
+
+        const order: { idx: number; depth: number; h: number }[] = [];
+        const collect = (idx: number, depth: number) => {
+          order.push({ idx, depth, h: rowH(idx, depth) });
+          nodes[idx].children.forEach((k) => collect(k, depth + 1));
+        };
+        collect(clusterIndex, 0);
+
+        const total = order.reduce((a, o) => a + o.h, 0);
+        const squeeze = total > height - 24 ? (height - 24) / total : 1;
+        let y = Math.max(14, (height - total * squeeze) / 2);
+        order.forEach((o) => {
+          const h = o.h * squeeze;
+          openTargets.set(o.idx, { x: baseX + o.depth * indent, y: y + h / 2 });
+          openSides.set(o.idx, true);
+          y += h;
+        });
+
+        treeColGap = width; // let the label wrap use the full remaining width
+        return;
+      }
 
       const cluster = nodes[clusterIndex];
       let maxDepth = 0;

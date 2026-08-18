@@ -334,3 +334,10 @@
   --pill-bg: hsl(348 74% 88%); /* baby pink */
   --pill-ink: hsl(345 40% 22%);
 }
+
+
+/* Native cursor hidden while the custom cursor is active (fine pointers only). */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
