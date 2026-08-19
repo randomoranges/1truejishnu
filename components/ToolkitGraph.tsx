@@ -987,9 +987,11 @@ export const ToolkitGraph = () => {
   return (
     <section id="toolkit" className={styles.section}>
       <div className={styles.container}>
+        {/* Section label — commented out; shown in the side nav instead.
         <ScrollReveal variant="fadeIn">
           <span className={styles.label}>{t("toolkit.label")}</span>
         </ScrollReveal>
+        */}
 
         <ScrollReveal variant="fadeUp">
           <h2 className={styles.heading}>{t("toolkit.heading")}</h2>

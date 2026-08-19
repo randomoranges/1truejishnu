@@ -79,9 +79,11 @@ export const BuiltSection = () => {
   return (
     <section id="built" className={styles.section}>
       <div className={styles.container}>
+        {/* Section label — commented out; shown in the side nav instead.
         <ScrollReveal variant="fadeIn">
           <span className={styles.label}>{t("built.label")}</span>
         </ScrollReveal>
+        */}
 
         <ScrollReveal variant="fadeUp">
           <p className={styles.intro}>{t("built.intro")}</p>

@@ -2,6 +2,8 @@
   background: var(--offwhite);
   color: var(--ink);
   padding: 8vh 0 14vh;
+  /* a hairline separates the cream sections from one another */
+  border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
 }
 
 /* On green, the section itself keeps the page's green ground (heading/

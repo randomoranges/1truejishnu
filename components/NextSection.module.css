@@ -13,23 +13,45 @@
   --panel-dim: hsl(0 0% 96% / 0.55);
 
   position: relative;
-  height: 300vh;
   background: var(--panel);
   color: var(--panel-ink);
 }
 
+/* Full variant: the scroll-scrubbed converging-threads build-up. */
+.full {
+  height: 300vh;
+}
+
+/* Closing variant: a single screen, no scrub — the quick hero → CTA skip. */
+.closing {
+  height: auto;
+  min-height: 90vh;
+}
+
 .sticky {
+  overflow: hidden;
+}
+
+.full .sticky {
   position: sticky;
   top: 0;
   height: 100svh;
-  overflow: hidden;
+}
+
+.closing .sticky {
+  position: relative;
+  min-height: 90vh;
 }
 
 .stage {
   position: relative;
   width: min(100% - 2 * var(--spacing-lg), 1180px);
-  height: 100%;
+  min-height: 90vh;
   margin-inline: auto;
+}
+
+.full .stage {
+  height: 100%;
 }
 
 .label {
@@ -174,6 +196,60 @@
   left: 50%;
   translate: -50% 0;
   bottom: -1.6rem;
+}
+
+/* ---------------------------------------------------------------
+   Closing CTA (the hero → last skip): a two-second hold, then a calm
+   reveal. During the hold a single dot pulses so the pause reads as
+   intentional rather than broken.
+   --------------------------------------------------------------- */
+.waiting {
+  display: flex;
+  justify-content: center;
+}
+
+.pulse {
+  width: 9px;
+  height: 9px;
+  border-radius: var(--radius-full);
+  background: var(--panel-dim);
+  animation: ctaPulse 1.15s var(--animation-ease) infinite;
+}
+
+@keyframes ctaPulse {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.75);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.1);
+  }
+}
+
+.reveal {
+  animation: ctaReveal 720ms var(--animation-ease-out) both;
+}
+
+@keyframes ctaReveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+  }
+  .pulse {
+    animation: none;
+  }
 }
 
 .statement {

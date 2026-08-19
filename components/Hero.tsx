@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { HoverPill } from "./HoverPill";
-import { ThemeToggle } from "./ThemeToggle";
+// Commented out per request — kept for later, not deleted.
+// import { HoverPill } from "./HoverPill";
+// import { ThemeToggle } from "./ThemeToggle";
 import styles from "./Hero.module.css";
 
 /**
@@ -19,9 +20,11 @@ const MAX_DRIFT = 6;
 export const Hero = () => {
   const { t } = useTranslation();
   const [drift, setDrift] = useState(0);
-  const [showMeaning, setShowMeaning] = useState(false);
-  const [showPill, setShowPill] = useState(false);
-  const closeTimer = useRef<number | null>(null);
+
+  // --- Name-meaning popup + intro pill state (commented out) ---------------
+  // const [showMeaning, setShowMeaning] = useState(false);
+  // const [showPill, setShowPill] = useState(false);
+  // const closeTimer = useRef<number | null>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -31,38 +34,38 @@ export const Hero = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(
-    () => () => {
-      if (closeTimer.current) window.clearTimeout(closeTimer.current);
-    },
-    []
-  );
+  // useEffect(
+  //   () => () => {
+  //     if (closeTimer.current) window.clearTimeout(closeTimer.current);
+  //   },
+  //   []
+  // );
 
-  const open = () => {
-    if (closeTimer.current) window.clearTimeout(closeTimer.current);
-    setShowMeaning(true);
-  };
+  // const open = () => {
+  //   if (closeTimer.current) window.clearTimeout(closeTimer.current);
+  //   setShowMeaning(true);
+  // };
 
-  const close = () => {
-    if (closeTimer.current) window.clearTimeout(closeTimer.current);
-    closeTimer.current = window.setTimeout(() => setShowMeaning(false), 120);
-  };
+  // const close = () => {
+  //   if (closeTimer.current) window.clearTimeout(closeTimer.current);
+  //   closeTimer.current = window.setTimeout(() => setShowMeaning(false), 120);
+  // };
 
   const lines = t("hero.lines", { returnObjects: true }) as string[];
 
   return (
-    <section className={styles.hero}>
+    <section id="hero" className={styles.hero}>
       <div
         className={styles.markWrap}
-        onMouseEnter={open}
-        onMouseLeave={close}
-        onFocus={open}
-        onBlur={close}
+        // Popup hover handlers commented out with the tooltip below.
+        // onMouseEnter={open}
+        // onMouseLeave={close}
+        // onFocus={open}
+        // onBlur={close}
         onDoubleClick={() => window.location.reload()}
         tabIndex={0}
         role="button"
         aria-label={t("hero.wordmark")}
-        aria-describedby="wordmark-meaning"
         style={{ "--wordmark-drift": `${drift}deg` } as React.CSSProperties}
       >
         <svg className={styles.wordmark} viewBox="0 0 560 560" aria-hidden="true">
@@ -76,6 +79,7 @@ export const Hero = () => {
           </text>
         </svg>
 
+        {/* Name-meaning popup — commented out per request, kept for later.
         <div
           id="wordmark-meaning"
           role="tooltip"
@@ -86,19 +90,22 @@ export const Hero = () => {
           <span className={styles.meaningTitle}>जिष्णु · జిష్ణు</span>
           <p className={styles.meaningBody}>{t("hero.meaning")}</p>
         </div>
+        */}
       </div>
 
       <div className={styles.stage}>
+        {/* Hover pill — commented out per request, kept for later.
         <HoverPill
           text={t("hero.pill")}
           show={showPill}
           className={styles.introPill}
         />
+        */}
 
         <p
           className={styles.intro}
-          onMouseEnter={() => setShowPill(true)}
-          onMouseLeave={() => setShowPill(false)}
+          // onMouseEnter={() => setShowPill(true)}
+          // onMouseLeave={() => setShowPill(false)}
         >
           {lines.map((line, i) => (
             <span
@@ -124,9 +131,11 @@ export const Hero = () => {
         />
       </div>
 
+      {/* Theme toggle — commented out per request, kept for later.
       <div className={styles.controls}>
         <ThemeToggle />
       </div>
+      */}
     </section>
   );
 };

@@ -1,11 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
-import { Hero } from "../components/Hero";
-import { BuiltSection } from "../components/BuiltSection";
-import { ToolkitGraph } from "../components/ToolkitGraph";
-import { NextSection } from "../components/NextSection";
-import { SiteFooter } from "../components/SiteFooter";
+import { SiteSections } from "../components/SiteSections";
 import { CustomCursor } from "../components/CustomCursor";
 import styles from "./_index.module.css";
 
@@ -81,11 +77,7 @@ export default function HomePage() {
       <CustomCursor />
 
       <div className={styles.page}>
-        <Hero />
-        <BuiltSection />
-        <ToolkitGraph />
-        <NextSection />
-        <SiteFooter />
+        <SiteSections />
       </div>
     </>
   );

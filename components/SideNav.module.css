@@ -1,0 +1,72 @@
+.nav {
+  position: fixed;
+  left: clamp(0.6rem, 1.6vw, 1.6rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--z-nav-sticky);
+  pointer-events: none;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  /* first item at the bottom, reading up — matching the reference */
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+/* Each label is a vertical word reading bottom-to-top. */
+.item {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  font-family: var(--font-family-base);
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  /* dark over the cream sections by default */
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+  transition: opacity var(--animation-duration-normal) var(--animation-ease),
+    color var(--animation-duration-normal) var(--animation-ease);
+}
+
+.item:hover,
+.item:focus-visible {
+  color: var(--ink);
+}
+
+/* the active item takes the accent colour */
+.active {
+  color: var(--accent-mark);
+}
+
+/* over the dark closing panel the labels flip to light */
+.onDark .item {
+  color: hsl(0 0% 96% / 0.6);
+}
+
+.onDark .item:hover,
+.onDark .item:focus-visible {
+  color: hsl(0 0% 96%);
+}
+
+.onDark .active {
+  color: var(--accent-mark);
+}
+
+@media (max-width: 720px) {
+  /* on a phone the fixed rail would crowd the content; hide it */
+  .nav {
+    display: none;
+  }
+}

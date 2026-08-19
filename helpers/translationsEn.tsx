@@ -169,7 +169,7 @@ export const en = {
           "Product Requirements",
           "UI/UX Analysis",
           "Agile / Scrum",
-          "SaaS Product Design",
+          /* "SaaS Product Design", — commented out per request */
           "Market Research",
         ],
       },
@@ -201,9 +201,10 @@ export const en = {
           "Adobe Illustrator",
           "Wireframing",
           "Prototyping",
-          "Usability Testing",
+          /* "Usability Testing", — commented out per request */
         ],
       },
+      /* Tools & Platforms — commented out per request, kept for later.
       {
         id: "tools",
         label: "Tools & Platforms",
@@ -219,6 +220,8 @@ export const en = {
           "Office 365",
         ],
       },
+      */
+      /* AI Stack — commented out per request, kept for later.
       {
         id: "ai",
         label: "AI Stack",
@@ -237,6 +240,8 @@ export const en = {
           "n8n · Zapier · Make",
         ],
       },
+      */
+      /* Credentials — commented out per request, kept for later.
       {
         id: "credentials",
         label: "Credentials",
@@ -255,6 +260,7 @@ export const en = {
           "Ethical Hacking — z Security",
         ],
       },
+      */
       {
         id: "research",
         label: "Research",
@@ -295,6 +301,7 @@ export const en = {
             label: "MBA, Business Administration",
             blurb:
               "Hochschule Fresenius University of Applied Sciences, Köln, DE",
+            /* Sub-nodes commented out per request, kept for later.
             items: [
               "Business Analytics",
               "Market Research",
@@ -302,10 +309,12 @@ export const en = {
               "Leadership",
               "Data-Driven Decision Making",
             ],
+            */
           },
           {
             label: "B.Tech, Electrical & Electronics",
             blurb: "Sikkim Manipal Institute of Technology, Sikkim, India",
+            /* Sub-nodes commented out per request, kept for later.
             items: [
               {
                 label: "Leadership: Joint Secretary",
@@ -348,6 +357,7 @@ export const en = {
                 ],
               },
             ],
+            */
           },
         ],
       },
